@@ -29,3 +29,14 @@ JOIN  departments AS d
  ON d.dept_no = de.dept_no
 WHERE d.dept_no = 'd009' AND t.to_date > curdate()
 GROUP BY t.title;
+
+-- Find current salary of all current managers
+SELECT d.dept_name, CONCAT(e.first_name, ' ', e.last_name) AS full_name, s.salary
+FROM departments AS d
+JOIN dept_manager AS dm
+ ON dm.dept_no = d.dept_no
+JOIN employees AS e
+ ON e.emp_no = dm.emp_no
+JOIN salaries AS s
+ ON s.emp_no = e. emp_no
+WHERE dm.to_date > curdate() AND s.to_date > curdate();
