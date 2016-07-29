@@ -40,3 +40,17 @@ JOIN employees AS e
 JOIN salaries AS s
  ON s.emp_no = e. emp_no
 WHERE dm.to_date > curdate() AND s.to_date > curdate();
+
+-- Bonus
+SELECT CONCAT(e.first_name, ' ', e.last_name) AS `Employee Name`, d.dept_name AS `Department Name`,
+CONCAT(me.first_name, ' ', me.last_name) AS `Manager Name`
+FROM employees AS e
+JOIN dept_emp AS de
+ ON de.emp_no = e.emp_no
+JOIN departments AS d
+ ON d.dept_no = de.dept_no
+JOIN dept_manager AS dm
+ ON dm.dept_no = d.dept_no AND dm.to_date > curdate()
+JOIN employees AS me
+ ON me.emp_no = dm.emp_no
+WHERE de.to_date > curdate();
